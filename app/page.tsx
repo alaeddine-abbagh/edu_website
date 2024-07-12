@@ -45,10 +45,9 @@ function Home() {
   }, []);
 
   return (
-    <>
-      <main className="min-h-screen bg-blue-custom text-white">
-        <header className="bg-blue-900 text-white py-6">
-          <div className="container mx-auto px-4">
+    <main className="min-h-screen bg-blue-custom text-white">
+      <header className="bg-blue-900 text-white py-6">
+        <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
               <h1 className="text-4xl font-bold font-sans text-yellow-custom">Math Olympiads</h1>
               <nav className="space-x-4 text-lg">
@@ -95,10 +94,11 @@ function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {randomProblem && (
-          <section className="py-24 bg-blue-800">
+      {randomProblem && (
+        <section className="py-24 bg-blue-800">
             <div className="container mx-auto px-4">
               <h2 className="text-4xl font-bold mb-8 text-center text-white font-sans">Problem of the Day</h2>
               <div className="bg-blue-700 p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
