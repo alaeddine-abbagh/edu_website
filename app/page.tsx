@@ -1,179 +1,64 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import dynamic from 'next/dynamic';
-const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
-const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
-import * as XLSX from "xlsx";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
-let workbook: XLSX.WorkBook | null = null;
-
-// Helper function to parse content
-const parseContent = (content: string) => {
-  return content.replace(/\$\$(.*?)\$\$/g, '\\[$1\\]')
-                .replace(/\$(.*?)\$/g, '\\($1\\)');
-};
-
-const config = {
-  loader: { load: ["input/asciimath"] },
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: true,
-    processEnvironments: true,
-  },
-  options: {
-    ignoreHtmlClass: 'tex2jax_ignore|editor-rich-text'
-  }
-};
+const popularCourses = [
+  { id: 1, title: "Introduction to Algebra", description: "Learn the basics of algebra" },
+  { id: 2, title: "Geometry Fundamentals", description: "Explore geometric concepts" },
+  { id: 3, title: "Calculus I", description: "Dive into differential calculus" },
+  { id: 4, title: "Statistics for Beginners", description: "Understand basic statistical concepts" },
+];
 
 export default function Home() {
-  const [latexInput, setLatexInput] = useState("");
-  const [problem, setProblem] = useState("");
-  const [hint, setHint] = useState("");
-  const [solution, setSolution] = useState("");
-  const [userSolution, setUserSolution] = useState("");
-  const [showHint, setShowHint] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
-  const [language, setLanguage] = useState<"fr" | "en">("fr");
-
-  const toggleLanguage = useCallback(() => {
-    setLanguage(prev => prev === "fr" ? "en" : "fr");
-  }, []);
-
-  const fetchRandomProblem = useCallback(() => {
-    if (workbook) {
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const json = XLSX.utils.sheet_to_json(sheet);
-      const randomIndex = Math.floor(Math.random() * json.length);
-      const randomProblem = json[randomIndex] as any;
-      
-      setProblem(JSON.parse(randomProblem.statement)[language]);
-      setHint(JSON.parse(randomProblem.hint)[language]);
-      setSolution(JSON.parse(randomProblem.solution)[language]);
-    }
-  }, [language]);
-
-  useEffect(() => {
-    if (!workbook) {
-      fetch("db.xlsx")
-        .then((response) => response.arrayBuffer())
-        .then((data) => {
-          workbook = XLSX.read(data, { type: "array" });
-          fetchRandomProblem();
-        });
-    } else {
-      fetchRandomProblem();
-    }
-  }, [language, fetchRandomProblem]);
-
-  const handleUserSolutionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setUserSolution(e.target.value);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <MathJaxContext config={config}>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-teal-400 to-violet-500 text-white">
-      <section className="w-full max-w-5xl text-center py-16">
-        <h1 className="text-5xl font-bold mb-8">Welcome to Math Olympiads</h1>
-        <p className="text-xl mb-8">
-          Join us to take lectures, solve math problems, and exchange knowledge.
-        </p>
-        <video
-          className="w-full max-w-3xl mx-auto mb-8"
-          controls
-          src="path_to_your_video.mp4"
-          alt="Introduction Video"
-        />
-        <button className="bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold mr-4">
-          Subscribe Now
-        </button>
-        <Link href="/explore" className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold mr-4">
-          Explore Problems
-        </Link>
-        <Link href="/add-problem" className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold">
-          Add Problem
-        </Link>
-      </section>
-
-      <section className="w-full max-w-5xl text-center py-16">
-        <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
-        <p>Email: contact@matholympiads.com</p>
-        <p>Phone: +123 456 7890</p>
-      </section>
-
-      <section className="w-full max-w-5xl text-center py-16">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-bold">
-            {language === "fr" ? "Problème du Jour" : "Problem of the Day"}
-          </h2>
-          <div>
-            <button
-              onClick={toggleLanguage}
-              className="bg-purple-500 text-white px-4 py-2 rounded-full mr-4"
-            >
-              {language === "fr" ? "Switch to English" : "Passer au Français"}
-            </button>
-            <button
-              onClick={fetchRandomProblem}
-              className="bg-orange-500 text-white px-4 py-2 rounded-full"
-            >
-              {language === "fr" ? "Changer de problème" : "Change Problem"}
-            </button>
-          </div>
+    <main className="min-h-screen bg-gray-100">
+      <header className="bg-blue-600 text-white p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Math Olympiads</h1>
+          <nav>
+            <Link href="/explore" className="mr-4 hover:underline">Explore</Link>
+            <Link href="/add-problem" className="hover:underline">Add Problem</Link>
+          </nav>
         </div>
-          <div className="mb-4">
-            <MathJax dynamic>{parseContent(problem)}</MathJax>
-          </div>
-          <div className="mb-4">
-            <textarea
-              className="w-full p-2 text-black"
-              rows={5}
-              value={userSolution}
-              onChange={handleUserSolutionChange}
-              placeholder={language === "fr" ? "Écrivez votre solution en LaTeX ici..." : "Write your solution in LaTeX here..."}
+      </header>
+
+      <div className="container mx-auto mt-8 px-4">
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-4">Find Your Next Course</h2>
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Search courses..."
+              className="flex-grow p-2 border rounded-l"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-r">Search</button>
           </div>
-          <div className="mb-4">
-            <h3 className="text-xl font-bold mb-2">
-              {language === "fr" ? "Votre solution compilée:" : "Your compiled solution:"}
-            </h3>
-            <MathJax dynamic>{parseContent(userSolution)}</MathJax>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold mb-4">Popular Courses</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {popularCourses.map((course) => (
+              <div key={course.id} className="bg-white p-4 rounded shadow">
+                <h3 className="font-bold mb-2">{course.title}</h3>
+                <p className="text-gray-600">{course.description}</p>
+                <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Learn More</button>
+              </div>
+            ))}
           </div>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
-            onClick={() => setShowHint(!showHint)}
-          >
-            {showHint 
-              ? (language === "fr" ? "Cacher l'indice" : "Hide hint")
-              : (language === "fr" ? "Montrer l'indice" : "Show hint")
-            }
-          </button>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded-full"
-            onClick={() => setShowSolution(!showSolution)}
-          >
-            {showSolution
-              ? (language === "fr" ? "Cacher la solution" : "Hide solution")
-              : (language === "fr" ? "Montrer la solution" : "Show solution")
-            }
-          </button>
-          {showHint && (
-            <div className="mt-4">
-              <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Indice:" : "Hint:"}</h3>
-              <MathJax dynamic>{parseContent(hint)}</MathJax>
-            </div>
-          )}
-          {showSolution && (
-            <div className="mt-4">
-              <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Solution:" : "Solution:"}</h3>
-              <MathJax dynamic>{parseContent(solution)}</MathJax>
-            </div>
-          )}
-      </section>
-      </main>
-    </MathJaxContext>
+        </section>
+      </div>
+
+      <footer className="bg-gray-800 text-white mt-12 py-8">
+        <div className="container mx-auto px-4">
+          <p>&copy; 2023 Math Olympiads. All rights reserved.</p>
+        </div>
+      </footer>
+    </main>
   );
 }
