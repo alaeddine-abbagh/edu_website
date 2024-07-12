@@ -80,25 +80,48 @@ export default function Home() {
       <main className="min-h-screen bg-white text-gray-800">
         <header className="bg-blue-600 text-white py-6">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold">Math Olympiads</h1>
-            <nav className="mt-4">
-              <Link href="/explore" className="mr-4 hover:underline">Explore</Link>
-              <Link href="/add-problem" className="hover:underline">Add Problem</Link>
-            </nav>
+            <div className="flex justify-between items-center">
+              <h1 className="text-4xl font-bold">Math Olympiads</h1>
+              <nav className="space-x-4">
+                <Link href="/explore" className="hover:underline">Explore</Link>
+                <Link href="/add-problem" className="hover:underline">Add Problem</Link>
+              </nav>
+            </div>
           </div>
         </header>
 
-        <section ref={el => sectionRefs.current[0] = el} className={`py-24 transition-opacity duration-1000 ${sections[0] ? 'opacity-100' : 'opacity-0'}`}>
+        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-24">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-5xl font-bold mb-6">Unlock Your Mathematical Potential</h2>
+            <p className="text-xl mb-8">Join our community of young mathematicians and prepare for Math Olympiads</p>
+            <Link href="/explore" className="bg-white text-blue-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-100 transition duration-300">
+              Start Exploring
+            </Link>
+          </div>
+        </section>
+
+        <section ref={el => sectionRefs.current[0] = el} className={`py-24 bg-gray-100 transition-opacity duration-1000 ${sections[0] ? 'opacity-100' : 'opacity-0'}`}>
           <div className="container mx-auto px-4">
             <h2 className="text-5xl font-bold mb-12 text-center">Featured Video</h2>
-            <div className="aspect-w-16 aspect-h-9 max-w-4xl mx-auto">
-              <iframe
-                src="https://www.youtube.com/embed/eCobHMHHKRE"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
+            <div className="flex flex-col md:flex-row items-center justify-center">
+              <div className="md:w-2/3 mb-8 md:mb-0 md:pr-8">
+                <div className="aspect-w-16 aspect-h-9">
+                  <iframe
+                    src="https://www.youtube.com/embed/eCobHMHHKRE"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full rounded-lg shadow-lg"
+                  ></iframe>
+                </div>
+              </div>
+              <div className="md:w-1/3">
+                <h3 className="text-2xl font-bold mb-4">Why Math Olympiads Matter</h3>
+                <p className="text-gray-600 mb-4">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
+                <Link href="/explore" className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
+                  Learn More
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -138,9 +161,11 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="bg-blue-100 p-6 rounded-lg shadow-lg">
                 <p className="text-xl italic">"Mathematics is the language in which God has written the universe."</p>
+                <p className="mt-4 text-right font-semibold">- Galileo Galilei</p>
               </div>
               <div className="bg-blue-100 p-6 rounded-lg shadow-lg">
                 <p className="text-xl italic">"Pure mathematics is, in its way, the poetry of logical ideas."</p>
+                <p className="mt-4 text-right font-semibold">- Albert Einstein</p>
               </div>
             </div>
           </div>
@@ -148,22 +173,63 @@ export default function Home() {
 
         <section ref={el => sectionRefs.current[3] = el} className={`py-24 bg-gray-100 transition-opacity duration-1000 ${sections[3] ? 'opacity-100' : 'opacity-0'}`}>
           <div className="container mx-auto px-4">
+            <h2 className="text-4xl font-bold mb-12 text-center">Upcoming Events</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <h3 className="font-bold text-xl mb-3 text-blue-600">International Math Olympiad</h3>
+                <p className="text-gray-600 mb-4">Date: July 15-25, 2023</p>
+                <p className="text-gray-600 mb-4">Location: Tokyo, Japan</p>
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Register Now</button>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <h3 className="font-bold text-xl mb-3 text-blue-600">European Girls' Mathematical Olympiad</h3>
+                <p className="text-gray-600 mb-4">Date: April 13-19, 2024</p>
+                <p className="text-gray-600 mb-4">Location: Tbilisi, Georgia</p>
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Learn More</button>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <h3 className="font-bold text-xl mb-3 text-blue-600">Asian Pacific Mathematics Olympiad</h3>
+                <p className="text-gray-600 mb-4">Date: March 8, 2024</p>
+                <p className="text-gray-600 mb-4">Location: Various Countries</p>
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">More Info</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section ref={el => sectionRefs.current[4] = el} className={`py-24 bg-white transition-opacity duration-1000 ${sections[4] ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold mb-12 text-center">Popular Courses</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="bg-white p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
+              <div className="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
                 <h3 className="font-bold text-xl mb-3 text-blue-600">Introduction to Algebra</h3>
-                <p className="text-gray-600 mb-4">Learn the basics of algebra</p>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Learn More</button>
+                <p className="text-gray-600 mb-4">Learn the basics of algebra and build a strong foundation for advanced mathematics.</p>
+                <ul className="text-gray-600 mb-4 list-disc list-inside">
+                  <li>Linear equations</li>
+                  <li>Quadratic equations</li>
+                  <li>Polynomials</li>
+                </ul>
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Enroll Now</button>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
+              <div className="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
                 <h3 className="font-bold text-xl mb-3 text-blue-600">Geometry Fundamentals</h3>
-                <p className="text-gray-600 mb-4">Explore geometric concepts</p>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Learn More</button>
+                <p className="text-gray-600 mb-4">Explore geometric concepts and develop spatial reasoning skills.</p>
+                <ul className="text-gray-600 mb-4 list-disc list-inside">
+                  <li>Euclidean geometry</li>
+                  <li>Trigonometry</li>
+                  <li>Coordinate geometry</li>
+                </ul>
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Enroll Now</button>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
+              <div className="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
                 <h3 className="font-bold text-xl mb-3 text-blue-600">Calculus I</h3>
-                <p className="text-gray-600 mb-4">Dive into differential calculus</p>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Learn More</button>
+                <p className="text-gray-600 mb-4">Dive into differential calculus and its applications in problem-solving.</p>
+                <ul className="text-gray-600 mb-4 list-disc list-inside">
+                  <li>Limits and continuity</li>
+                  <li>Derivatives</li>
+                  <li>Applications of derivatives</li>
+                </ul>
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Enroll Now</button>
               </div>
             </div>
           </div>
