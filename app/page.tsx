@@ -90,8 +90,11 @@ export default function Home() {
         <button className="bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold mr-4">
           Subscribe Now
         </button>
-        <Link href="/explore" className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold">
+        <Link href="/explore" className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold mr-4">
           Explore Problems
+        </Link>
+        <Link href="/add-problem" className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold">
+          Add Problem
         </Link>
       </section>
 
