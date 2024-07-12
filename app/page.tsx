@@ -69,7 +69,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-48 bg-blue-700">
+        <section className="py-48 bg-blue-800 relative">
+          <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+          <div className="relative z-10">
           <div className="container mx-auto px-4">
             <h2 className="text-5xl font-bold mb-24 text-center text-white font-sans">Featured Video</h2>
             <div className="flex flex-col md:flex-row items-center justify-center">
