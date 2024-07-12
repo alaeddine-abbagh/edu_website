@@ -123,7 +123,7 @@ export default function Home() {
         </div>
         <MathJaxContext config={config}>
           <div className="mb-4">
-            <MathJax>{problem}</MathJax>
+            <MathJax dynamic>{`\\(${problem}\\)`}</MathJax>
           </div>
           <div className="mb-4">
             <textarea
@@ -161,13 +161,13 @@ export default function Home() {
           {showHint && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Indice:" : "Hint:"}</h3>
-              <MathJax>{hint}</MathJax>
+              <MathJax dynamic>{`\\(${hint}\\)`}</MathJax>
             </div>
           )}
           {showSolution && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Solution:" : "Solution:"}</h3>
-              <MathJax>{solution}</MathJax>
+              <MathJax dynamic>{`\\(${solution}\\)`}</MathJax>
             </div>
           )}
         </MathJaxContext>
