@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 export default function Home() {
-  const [latexInput, setLatexInput] = useState("");
+  const [latexInput, setLatexInput] = useState("\\(\\int_0^1 x^2 \\, dx\\)");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-teal-400 to-violet-500 text-white">
@@ -26,16 +27,17 @@ export default function Home() {
 
       <section className="w-full max-w-5xl text-center py-16">
         <h2 className="text-3xl font-bold mb-4">Solve Math Problems with LaTeX</h2>
-        <textarea
-          className="w-full h-48 p-4 text-black"
-          placeholder="Write your LaTeX here..."
-          value={latexInput}
-          onChange={(e) => setLatexInput(e.target.value)}
-        />
-        <div className="mt-4 p-4 bg-white text-black rounded">
-          {/* Render LaTeX output here */}
-          {latexInput}
-        </div>
+        <MathJaxContext>
+          <textarea
+            className="w-full h-48 p-4 text-black"
+            placeholder="Write your LaTeX here..."
+            value={latexInput}
+            onChange={(e) => setLatexInput(e.target.value)}
+          />
+          <div className="mt-4 p-4 bg-white text-black rounded">
+            <MathJax>{latexInput}</MathJax>
+          </div>
+        </MathJaxContext>
       </section>
 
       <section className="w-full max-w-5xl text-center py-16">
