@@ -73,7 +73,7 @@ export default function Home() {
             <h2 className="text-5xl font-bold mb-24 text-center text-blue-800">Featured Video</h2>
             <div className="flex flex-col md:flex-row items-center justify-center">
               <div className="md:w-2/3 mb-20 md:mb-0 md:pr-20">
-                <div className="aspect-w-16 aspect-h-9">
+                <div className="aspect-w-16 aspect-h-9 h-[500px]">
                   <iframe
                     src="https://www.youtube.com/embed/eCobHMHHKRE"
                     frameBorder="0"
