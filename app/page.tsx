@@ -254,19 +254,3 @@ export default function WrappedHome() {
     </MathJaxWrapper>
   );
 }
-
-const MathJaxWrapper = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <MathJaxContext config={config}>
-      {children}
-    </MathJaxContext>
-  );
-};
-
-export default function WrappedHome() {
-  return (
-    <MathJaxWrapper>
-      <Home />
-    </MathJaxWrapper>
-  );
-}
