@@ -19,14 +19,11 @@ body::before {
 }
 
 .gradient-button {
-  background: linear-gradient(90deg, #FFAA32 60%, #EF543E 93%);
-  color: #fff;
-  transition: all 0.3s ease;
-  border-radius: 25px;
+  @apply bg-gradient-to-r from-[#FFAA32] to-[#EF543E] text-white font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out flex items-center justify-center space-x-2;
 }
 
 .gradient-button:hover {
-  filter: brightness(1.1);
+  @apply brightness-110;
 }
 
 .bg-blue-custom {

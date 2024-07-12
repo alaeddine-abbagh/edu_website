@@ -23,6 +23,9 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventIcon from '@mui/icons-material/Event';
 import SchoolIcon from '@mui/icons-material/School';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import ExploreIcon from '@mui/icons-material/Explore';
+import AddIcon from '@mui/icons-material/Add';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
 const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
@@ -101,8 +104,8 @@ function Home() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Math Olympiads
           </Typography>
-          <Button color="inherit" component={Link} href="/explore">Explore</Button>
-          <Button color="inherit" component={Link} href="/add-problem">Add Problem</Button>
+          <Button color="inherit" component={Link} href="/explore" startIcon={<ExploreIcon />}>Explore</Button>
+          <Button color="inherit" component={Link} href="/add-problem" startIcon={<AddIcon />}>Add Problem</Button>
         </Toolbar>
       </AppBar>
 
@@ -115,8 +118,9 @@ function Home() {
             Join our community of young mathematicians and prepare for Math Olympiads
           </Typography>
           <Box sx={{ textAlign: 'center', mt: 4 }}>
-            <Button variant="contained" size="large" component={Link} href="/explore">
-              Start Exploring
+            <Button className="gradient-button" component={Link} href="/explore">
+              <ExploreIcon className="mr-2" />
+              <span>Start Exploring</span>
             </Button>
           </Box>
         </Box>
@@ -144,7 +148,7 @@ function Home() {
               <Typography variant="body1" paragraph>
                 Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.
               </Typography>
-              <Button variant="contained" color="secondary" startIcon={<YouTubeIcon />}>
+              <Button className="gradient-button" startIcon={<PlayArrowIcon />}>
                 Learn More
               </Button>
             </Grid>
