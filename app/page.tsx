@@ -87,7 +87,7 @@ export default function Home() {
               <div className="md:w-1/3">
                 <h3 className="text-4xl font-bold mb-10 text-white font-sans">Why Math Olympiads Matter</h3>
                 <p className="text-white mb-10 text-2xl leading-relaxed font-serif">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
-                <Link href="/explore" className="bg-orange-500 text-white px-12 py-5 rounded-full hover:bg-orange-600 transition duration-300 text-2xl font-semibold">
+                <Link href="/explore" className="bg-orange-custom text-white px-12 py-5 rounded-full hover:bg-orange-custom-dark transition duration-300 text-2xl font-semibold">
                   Learn More
                 </Link>
               </div>
@@ -104,7 +104,7 @@ export default function Home() {
                 <MathJax dynamic>{parseContent(JSON.parse(randomProblem.statement)[language])}</MathJax>
                 <button
                   onClick={() => setLanguage(prev => prev === "fr" ? "en" : "fr")}
-                  className="mt-6 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
+                  className="mt-6 bg-orange-custom text-white px-4 py-2 rounded-lg hover:bg-orange-custom-dark transition duration-300"
                 >
                   {language === "fr" ? "Switch to English" : "Passer au Français"}
                 </button>

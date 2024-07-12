@@ -22,3 +22,7 @@ body {
 .hover\:bg-orange-custom-dark:hover {
   background-color: #f57c00;
 }
+
+.bg-orange-custom-dark {
+  background-color: #f57c00;
+}
