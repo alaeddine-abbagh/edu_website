@@ -46,9 +46,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           background: 'linear-gradient(90deg, #FFAA32 60%, #EF543E 93%)',
-          color: '#000',
+          color: '#fff',
+          borderRadius: '25px',
           '&:hover': {
-            opacity: 0.9,
+            filter: 'brightness(1.1)',
           },
         },
       },

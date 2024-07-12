@@ -20,12 +20,13 @@ body::before {
 
 .gradient-button {
   background: linear-gradient(90deg, #FFAA32 60%, #EF543E 93%);
-  color: #000;
+  color: #fff;
   transition: all 0.3s ease;
+  border-radius: 25px;
 }
 
 .gradient-button:hover {
-  opacity: 0.9;
+  filter: brightness(1.1);
 }
 
 .bg-blue-custom {
