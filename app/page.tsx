@@ -21,10 +21,11 @@ export default function Home() {
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
         const json = XLSX.utils.sheet_to_json(sheet);
-        const randomProblem = json[Math.floor(Math.random() * json.length)];
-        setProblem(randomProblem.Problem);
-        setHint(randomProblem.Hint);
-        setSolution(randomProblem.Solution);
+        const specificProblem = json[1]; // Line 2 corresponds to index 1
+        setProblem(specificProblem.Problem);
+        setHint(specificProblem.Hint);
+        setSolution(specificProblem.Solution);
+        setLatexInput(specificProblem.Problem);
       });
   }, []);
 
