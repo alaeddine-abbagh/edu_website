@@ -14,7 +14,7 @@ export default function Home() {
   const [showSolution, setShowSolution] = useState(false);
 
   useEffect(() => {
-    fetch("/db.xlsx")
+    fetch("db.xlsx")
       .then((response) => response.arrayBuffer())
       .then((data) => {
         const workbook = XLSX.read(data, { type: "array" });
@@ -22,7 +22,7 @@ export default function Home() {
         const sheet = workbook.Sheets[sheetName];
         const json = XLSX.utils.sheet_to_json(sheet);
         const randomIndex = Math.floor(Math.random() * json.length);
-        const randomProblem = json[randomIndex];
+        const randomProblem = json[randomIndex] as any;
         
         const statementObj = JSON.parse(randomProblem.statement);
         const solutionObj = JSON.parse(randomProblem.solution);
