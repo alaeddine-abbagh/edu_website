@@ -9,8 +9,7 @@ let workbook: XLSX.WorkBook | null = null;
 
 // Helper function to parse content
 const parseContent = (content: string) => {
-  return content.replace(/\$\$([\s\S]*?)\$\$/g, (_, match) => `\\[${match.trim()}\\]`)
-                .replace(/\$((?:[^$]|\\\$)+?)\$/g, (_, match) => `\\(${match.trim()}\\)`);
+  return content;
 };
 
 const config = {

@@ -15,8 +15,7 @@ const config = {
 };
 
 const parseContent = (content: string) => {
-  return content.replace(/\$\$([\s\S]*?)\$\$/g, (_, match) => `\\[${match.trim()}\\]`)
-                .replace(/\$((?:[^$]|\\\$)+?)\$/g, (_, match) => `\\(${match.trim()}\\)`);
+  return content;
 };
 
 export default function ExplorePage() {
