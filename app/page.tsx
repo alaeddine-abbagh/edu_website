@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import * as XLSX from "xlsx";
+import "../styles/grid-pattern.css";
 
 const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
 const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
@@ -45,14 +46,14 @@ export default function Home() {
 
   return (
     <MathJaxContext config={config}>
-      <main className="min-h-screen bg-blue-900 text-white">
-        <header className="bg-blue-800 text-white py-6">
+      <main className="min-h-screen bg-blue-custom text-white">
+        <header className="bg-blue-900 text-white py-6">
           <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-bold font-sans">Math Olympiads</h1>
+              <h1 className="text-4xl font-bold font-sans text-yellow-custom">Math Olympiads</h1>
               <nav className="space-x-4 text-lg">
-                <Link href="/explore" className="hover:text-orange-400 transition duration-300">Explore</Link>
-                <Link href="/add-problem" className="hover:text-orange-400 transition duration-300">Add Problem</Link>
+                <Link href="/explore" className="hover:text-yellow-custom transition duration-300">Explore</Link>
+                <Link href="/add-problem" className="hover:text-yellow-custom transition duration-300">Add Problem</Link>
               </nav>
             </div>
           </div>
@@ -60,9 +61,9 @@ export default function Home() {
 
         <section className="bg-blue-800 text-white py-24">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-5xl font-bold mb-6 font-sans">Unlock Your Mathematical Potential</h2>
+            <h2 className="text-5xl font-bold mb-6 font-sans text-yellow-custom">Unlock Your Mathematical Potential</h2>
             <p className="text-2xl mb-8 font-serif">Join our community of young mathematicians and prepare for Math Olympiads</p>
-            <Link href="/explore" className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300">
+            <Link href="/explore" className="bg-orange-custom text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-custom-dark transition duration-300">
               Start Exploring
             </Link>
           </div>
