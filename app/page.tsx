@@ -37,8 +37,21 @@ const theme = createTheme({
       main: '#f50057',
     },
     background: {
-      default: '#0a192f',
-      paper: '#112240',
+      default: '#060E30',
+      paper: '#0A1940',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          background: 'linear-gradient(90deg, #FFAA32 60%, #EF543E 93%)',
+          color: '#000',
+          '&:hover': {
+            opacity: 0.9,
+          },
+        },
+      },
     },
   },
 });
