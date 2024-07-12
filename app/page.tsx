@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import * as XLSX from "xlsx";
+import Link from "next/link";
 
 let workbook: XLSX.WorkBook | null = null;
 
@@ -86,9 +87,12 @@ export default function Home() {
           src="path_to_your_video.mp4"
           alt="Introduction Video"
         />
-        <button className="bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold">
+        <button className="bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold mr-4">
           Subscribe Now
         </button>
+        <Link href="/explore" className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold">
+          Explore Problems
+        </Link>
       </section>
 
       <section className="w-full max-w-5xl text-center py-16">
