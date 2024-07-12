@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import dynamic from 'next/dynamic';
+const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
 import * as XLSX from "xlsx";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ let workbook: XLSX.WorkBook | null = null;
 
 // Helper function to parse content
 const parseContent = (content: string) => {
-  return content;
+  return content.replace(/\$/g, '\\(').replace(/\$/g, '\\)');
 };
 
 const config = {
@@ -71,7 +72,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-teal-400 to-violet-500 text-white">
+    <MathJax>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-teal-400 to-violet-500 text-white">
       <section className="w-full max-w-5xl text-center py-16">
         <h1 className="text-5xl font-bold mb-8">Welcome to Math Olympiads</h1>
         <p className="text-xl mb-8">
@@ -117,7 +119,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <MathJaxContext config={config}>
           <div className="mb-4">
             <MathJax dynamic>{parseContent(problem)}</MathJax>
           </div>
@@ -166,8 +167,8 @@ export default function Home() {
               <MathJax dynamic>{parseContent(solution)}</MathJax>
             </div>
           )}
-        </MathJaxContext>
       </section>
-    </main>
+      </main>
+    </MathJax>
   );
 }
