@@ -100,9 +100,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section ref={el => sectionRefs.current[0] = el} className={`py-24 bg-gray-100 transition-opacity duration-1000 ${sections[0] ? 'opacity-100' : 'opacity-0'}`}>
+        <section ref={el => sectionRefs.current[0] = el} className={`py-24 bg-blue-100 transition-opacity duration-1000 ${sections[0] ? 'opacity-100' : 'opacity-0'}`}>
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold mb-12 text-center">Featured Video</h2>
+            <h2 className="text-5xl font-bold mb-12 text-center text-blue-800">Featured Video</h2>
             <div className="flex flex-col md:flex-row items-center justify-center">
               <div className="md:w-2/3 mb-8 md:mb-0 md:pr-8">
                 <div className="aspect-w-16 aspect-h-9">
@@ -116,8 +116,8 @@ export default function Home() {
                 </div>
               </div>
               <div className="md:w-1/3">
-                <h3 className="text-2xl font-bold mb-4">Why Math Olympiads Matter</h3>
-                <p className="text-gray-600 mb-4">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
+                <h3 className="text-2xl font-bold mb-4 text-blue-800">Why Math Olympiads Matter</h3>
+                <p className="text-blue-600 mb-4">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
                 <Link href="/explore" className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
                   Learn More
                 </Link>
@@ -127,24 +127,24 @@ export default function Home() {
         </section>
 
         {randomProblem && (
-          <section ref={el => sectionRefs.current[1] = el} className={`py-24 bg-gray-100 transition-opacity duration-1000 ${sections[1] ? 'opacity-100' : 'opacity-0'}`}>
+          <section ref={el => sectionRefs.current[1] = el} className={`py-24 bg-purple-100 transition-opacity duration-1000 ${sections[1] ? 'opacity-100' : 'opacity-0'}`}>
             <div className="container mx-auto px-4">
-              <h2 className="text-4xl font-bold mb-8 text-center">Problem of the Day</h2>
+              <h2 className="text-4xl font-bold mb-8 text-center text-purple-800">Problem of the Day</h2>
               <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
-                <h3 className="font-bold text-2xl mb-4 text-blue-600">Problem Statement:</h3>
+                <h3 className="font-bold text-2xl mb-4 text-purple-600">Problem Statement:</h3>
                 <MathJax dynamic>{parseContent(JSON.parse(randomProblem.statement)[language])}</MathJax>
                 <button
                   onClick={() => setLanguage(prev => prev === "fr" ? "en" : "fr")}
-                  className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                  className="mt-6 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-300"
                 >
                   {language === "fr" ? "Switch to English" : "Passer au Français"}
                 </button>
                 <div className="mt-8">
-                  <h4 className="font-bold text-xl mb-2">Your Answer:</h4>
+                  <h4 className="font-bold text-xl mb-2 text-purple-600">Your Answer:</h4>
                   <textarea
                     value={userAnswer}
                     onChange={(e) => setUserAnswer(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-2 border border-purple-300 rounded"
                     rows={4}
                     placeholder="Type your answer here..."
                   />
@@ -155,17 +155,17 @@ export default function Home() {
           </section>
         )}
 
-        <section ref={el => sectionRefs.current[2] = el} className={`py-24 transition-opacity duration-1000 ${sections[2] ? 'opacity-100' : 'opacity-0'}`}>
+        <section ref={el => sectionRefs.current[2] = el} className={`py-24 bg-green-100 transition-opacity duration-1000 ${sections[2] ? 'opacity-100' : 'opacity-0'}`}>
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-12 text-center">Motivational Quotes</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-green-800">Motivational Quotes</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="bg-blue-100 p-6 rounded-lg shadow-lg">
-                <p className="text-xl italic">"Mathematics is the language in which God has written the universe."</p>
-                <p className="mt-4 text-right font-semibold">- Galileo Galilei</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <p className="text-xl italic text-green-600">"Mathematics is the language in which God has written the universe."</p>
+                <p className="mt-4 text-right font-semibold text-green-800">- Galileo Galilei</p>
               </div>
-              <div className="bg-blue-100 p-6 rounded-lg shadow-lg">
-                <p className="text-xl italic">"Pure mathematics is, in its way, the poetry of logical ideas."</p>
-                <p className="mt-4 text-right font-semibold">- Albert Einstein</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <p className="text-xl italic text-green-600">"Pure mathematics is, in its way, the poetry of logical ideas."</p>
+                <p className="mt-4 text-right font-semibold text-green-800">- Albert Einstein</p>
               </div>
             </div>
           </div>
