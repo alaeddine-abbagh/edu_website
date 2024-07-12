@@ -41,7 +41,7 @@ const theme = createTheme({
     },
     background: {
       default: '#060E30',
-      paper: '#0A1940',
+      paper: '#060E30',
     },
   },
   components: {
@@ -104,7 +104,7 @@ function Home() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Math Olympiads
           </Typography>
-          <Button color="inherit" component={Link} href="/explore" startIcon={<ExploreIcon />}>Explore</Button>
+          <Button color="inherit"  sx={{ marginRight: 2 }} component={Link} href="/explore" startIcon={<ExploreIcon />}>Explore</Button>
           <Button color="inherit" component={Link} href="/add-problem" startIcon={<AddIcon />}>Add Problem</Button>
         </Toolbar>
       </AppBar>
