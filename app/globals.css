@@ -6,6 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --teal: #38b2ac;
+  --violet: #805ad5;
+  --blue: #4299e1;
+  --yellow: #ecc94b;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +28,32 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+header {
+  background-color: var(--teal);
+  color: white;
+  padding: 1rem;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer {
+  background-color: var(--violet);
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 @layer utilities {
