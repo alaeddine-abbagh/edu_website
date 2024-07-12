@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import * as XLSX from "xlsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import '../styles/grid-pattern.css';
+import './grid-pattern.css';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
