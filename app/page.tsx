@@ -24,9 +24,9 @@ export default function Home() {
         const randomIndex = Math.floor(Math.random() * json.length);
         const randomProblem = json[randomIndex] as any;
         
-        setProblem(`\\[${randomProblem.statement}\\]`);
-        setHint(`\\[${randomProblem.hint}\\]`);
-        setSolution(`\\[${randomProblem.solution}\\]`);
+        setProblem(randomProblem.statement);
+        setHint(randomProblem.hint);
+        setSolution(randomProblem.solution);
       });
   }, []);
 
@@ -62,7 +62,7 @@ export default function Home() {
         <h2 className="text-3xl font-bold mb-4">Problème du Jour</h2>
         <MathJaxContext>
           <div className="mb-4">
-            <MathJax dynamic>{problem}</MathJax>
+            <MathJax dynamic>{`\\[${problem}\\]`}</MathJax>
           </div>
           <div className="mb-4">
             <textarea
@@ -75,7 +75,7 @@ export default function Home() {
           </div>
           <div className="mb-4">
             <h3 className="text-xl font-bold mb-2">Votre solution compilée:</h3>
-            <MathJax dynamic>{userSolution}</MathJax>
+            <MathJax dynamic>{`\\[${userSolution}\\]`}</MathJax>
           </div>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
@@ -92,13 +92,13 @@ export default function Home() {
           {showHint && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">Indice:</h3>
-              <MathJax dynamic>{hint}</MathJax>
+              <MathJax dynamic>{`\\[${hint}\\]`}</MathJax>
             </div>
           )}
           {showSolution && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">Solution:</h3>
-              <MathJax dynamic>{solution}</MathJax>
+              <MathJax dynamic>{`\\[${solution}\\]`}</MathJax>
             </div>
           )}
         </MathJaxContext>
