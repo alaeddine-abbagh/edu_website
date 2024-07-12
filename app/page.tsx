@@ -27,7 +27,7 @@ const parseContent = (content: string) => {
                 .replace(/\$(.*?)\$/g, '\\($1\\)');
 };
 
-export default function Home() {
+function Home() {
   const [randomProblem, setRandomProblem] = useState<any>(null);
   const [language, setLanguage] = useState<"fr" | "en">("en");
   const [userAnswer, setUserAnswer] = useState("");
@@ -45,7 +45,6 @@ export default function Home() {
   }, []);
 
   return (
-    <>
       <main className="min-h-screen bg-blue-custom text-white">
         <header className="bg-blue-900 text-white py-6">
           <div className="container mx-auto px-4">
@@ -237,6 +236,22 @@ export default function Home() {
         </footer>
       </main>
     </>
+  );
+}
+
+const MathJaxWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <MathJaxContext config={config}>
+      {children}
+    </MathJaxContext>
+  );
+};
+
+export default function WrappedHome() {
+  return (
+    <MathJaxWrapper>
+      <Home />
+    </MathJaxWrapper>
   );
 }
 
