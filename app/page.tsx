@@ -58,7 +58,7 @@ function Home() {
           </div>
         </header>
 
-        <section className="bg-blue-800 text-white py-24">
+        <section className="bg-blue-700 text-white py-24">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-5xl font-bold mb-6 font-sans text-yellow-custom">Unlock Your Mathematical Potential</h2>
             <p className="text-2xl mb-8 font-serif">Join our community of young mathematicians and prepare for Math Olympiads</p>
@@ -70,6 +70,7 @@ function Home() {
 
         <section className="py-48 bg-blue-800 relative">
           <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+          <div className="absolute inset-0 bg-black-grid-pattern opacity-5"></div>
           <div className="relative z-10">
           <div className="container mx-auto px-4">
             <h2 className="text-5xl font-bold mb-24 text-center text-white font-sans">Featured Video</h2>
