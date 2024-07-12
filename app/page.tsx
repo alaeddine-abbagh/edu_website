@@ -75,7 +75,7 @@ export default function Home() {
           </div>
           <div className="mb-4">
             <h3 className="text-xl font-bold mb-2">Votre solution compilée:</h3>
-            <MathJax dynamic>{`\\[${userSolution}\\]`}</MathJax>
+            <MathJax dynamic>{userSolution}</MathJax>
           </div>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
