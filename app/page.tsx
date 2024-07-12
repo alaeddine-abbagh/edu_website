@@ -4,6 +4,17 @@ import { useState, useEffect, useCallback } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import * as XLSX from "xlsx";
 
+// Helper function to parse content
+const parseContent = (content: string) => {
+  const parts = content.split(/(\$.*?\$)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('$') && part.endsWith('$')) {
+      return <MathJax key={index}>{part}</MathJax>;
+    }
+    return <span key={index}>{part}</span>;
+  });
+};
+
 export default function Home() {
   const [latexInput, setLatexInput] = useState("");
   const [problem, setProblem] = useState("");
@@ -77,7 +88,7 @@ export default function Home() {
         </div>
         <MathJaxContext>
           <div className="mb-4">
-            <MathJax dynamic>{`\\[${problem}\\]`}</MathJax>
+            {parseContent(problem)}
           </div>
           <div className="mb-4">
             <textarea
@@ -92,7 +103,7 @@ export default function Home() {
             <h3 className="text-xl font-bold mb-2">
               {language === "fr" ? "Votre solution compilée:" : "Your compiled solution:"}
             </h3>
-            <MathJax dynamic>{`\\[${userSolution}\\]`}</MathJax>
+            <MathJax>{userSolution}</MathJax>
           </div>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
@@ -115,13 +126,13 @@ export default function Home() {
           {showHint && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Indice:" : "Hint:"}</h3>
-              <MathJax dynamic>{`\\[${hint}\\]`}</MathJax>
+              {parseContent(hint)}
             </div>
           )}
           {showSolution && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Solution:" : "Solution:"}</h3>
-              <MathJax dynamic>{`\\[${solution}\\]`}</MathJax>
+              {parseContent(solution)}
             </div>
           )}
         </MathJaxContext>
