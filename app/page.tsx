@@ -6,7 +6,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import * as XLSX from "xlsx";
 
 export default function Home() {
-  const [latexInput, setLatexInput] = useState("\\(\\int_0^1 x^2 \\, dx\\)");
+  const [latexInput, setLatexInput] = useState("");
   const [problem, setProblem] = useState("");
   const [hint, setHint] = useState("");
   const [solution, setSolution] = useState("");
@@ -21,11 +21,12 @@ export default function Home() {
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
         const json = XLSX.utils.sheet_to_json(sheet);
-        const specificProblem = json[1]; // Line 2 corresponds to index 1
-        setProblem(specificProblem.Problem);
-        setHint(specificProblem.Hint);
-        setSolution(specificProblem.Solution);
-        setLatexInput(`Here is a problem for you to solve: ${specificProblem.Problem}`);
+        const randomIndex = Math.floor(Math.random() * json.length);
+        const randomProblem = json[randomIndex];
+        setProblem(randomProblem.Problem);
+        setHint(randomProblem.Hint);
+        setSolution(randomProblem.Solution);
+        setLatexInput(randomProblem.Problem);
       });
   }, []);
 
@@ -64,18 +65,32 @@ export default function Home() {
       </section>
 
       <section className="w-full max-w-5xl text-center py-16">
-        <h2 className="text-3xl font-bold mb-4">Solve Math Problems with LaTeX</h2>
+        <h2 className="text-3xl font-bold mb-4">Random Math Problem</h2>
         <MathJaxContext>
-          <textarea
-            className="w-full h-48 p-4 text-black"
-            placeholder="Write your LaTeX here..."
-            value={latexInput}
-            onChange={(e) => setLatexInput(e.target.value)}
-          />
           <div className="mt-4 p-4 bg-white text-black rounded">
             <MathJax>{latexInput}</MathJax>
           </div>
+          <textarea
+            className="w-full h-48 p-4 mt-4 text-black"
+            placeholder="Write your solution here..."
+            value={latexInput}
+            onChange={(e) => setLatexInput(e.target.value)}
+          />
         </MathJaxContext>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-full mt-4 mr-4"
+          onClick={() => setShowHint(!showHint)}
+        >
+          {showHint ? "Hide Hint" : "Show Hint"}
+        </button>
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded-full mt-4"
+          onClick={() => setShowSolution(!showSolution)}
+        >
+          {showSolution ? "Hide Solution" : "Show Solution"}
+        </button>
+        {showHint && <p className="mt-4">{hint}</p>}
+        {showSolution && <p className="mt-4">{solution}</p>}
       </section>
 
       <section className="w-full max-w-5xl text-center py-16">
