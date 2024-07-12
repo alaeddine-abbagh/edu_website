@@ -235,8 +235,7 @@ function Home() {
             </div>
           </div>
         </footer>
-      </main>
-    </>
+    </main>
   );
 }
 
