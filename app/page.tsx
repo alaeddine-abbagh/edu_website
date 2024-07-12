@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import * as XLSX from "xlsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import '../styles/grid-pattern.css';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -28,11 +29,16 @@ const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => 
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       main: '#1976d2',
     },
     secondary: {
       main: '#f50057',
+    },
+    background: {
+      default: '#0a192f',
+      paper: '#112240',
     },
   },
 });
