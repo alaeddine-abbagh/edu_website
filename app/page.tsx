@@ -102,12 +102,20 @@ export default function Home() {
           <h2 className="text-3xl font-bold">
             {language === "fr" ? "Problème du Jour" : "Problem of the Day"}
           </h2>
-          <button
-            onClick={toggleLanguage}
-            className="bg-purple-500 text-white px-4 py-2 rounded-full"
-          >
-            {language === "fr" ? "Switch to English" : "Passer au Français"}
-          </button>
+          <div>
+            <button
+              onClick={toggleLanguage}
+              className="bg-purple-500 text-white px-4 py-2 rounded-full mr-4"
+            >
+              {language === "fr" ? "Switch to English" : "Passer au Français"}
+            </button>
+            <button
+              onClick={fetchRandomProblem}
+              className="bg-orange-500 text-white px-4 py-2 rounded-full"
+            >
+              {language === "fr" ? "Changer de problème" : "Change Problem"}
+            </button>
+          </div>
         </div>
         <MathJaxContext config={config}>
           <div className="mb-4">
