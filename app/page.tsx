@@ -45,6 +45,7 @@ function Home() {
   }, []);
 
   return (
+    <>
       <main className="min-h-screen bg-blue-custom text-white">
         <header className="bg-blue-900 text-white py-6">
           <div className="container mx-auto px-4">
