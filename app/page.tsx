@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import * as XLSX from "xlsx";
 
+let workbook: XLSX.WorkBook | null = null;
+
 // Helper function to parse content
 const parseContent = (content: string) => {
   const parts = content.split(/(\$\$[\s\S]*?\$\$|\$.*?\$)/g);
@@ -40,22 +42,32 @@ export default function Home() {
     setLanguage(prev => prev === "fr" ? "en" : "fr");
   }, []);
 
-  useEffect(() => {
-    fetch("db.xlsx")
-      .then((response) => response.arrayBuffer())
-      .then((data) => {
-        const workbook = XLSX.read(data, { type: "array" });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const json = XLSX.utils.sheet_to_json(sheet);
-        const randomIndex = Math.floor(Math.random() * json.length);
-        const randomProblem = json[randomIndex] as any;
-        
-        setProblem(JSON.parse(randomProblem.statement)[language]);
-        setHint(JSON.parse(randomProblem.hint)[language]);
-        setSolution(JSON.parse(randomProblem.solution)[language]);
-      });
+  const fetchRandomProblem = useCallback(() => {
+    if (workbook) {
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(sheet);
+      const randomIndex = Math.floor(Math.random() * json.length);
+      const randomProblem = json[randomIndex] as any;
+      
+      setProblem(JSON.parse(randomProblem.statement)[language]);
+      setHint(JSON.parse(randomProblem.hint)[language]);
+      setSolution(JSON.parse(randomProblem.solution)[language]);
+    }
   }, [language]);
+
+  useEffect(() => {
+    if (!workbook) {
+      fetch("db.xlsx")
+        .then((response) => response.arrayBuffer())
+        .then((data) => {
+          workbook = XLSX.read(data, { type: "array" });
+          fetchRandomProblem();
+        });
+    } else {
+      fetchRandomProblem();
+    }
+  }, [language, fetchRandomProblem]);
 
   const handleUserSolutionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserSolution(e.target.value);
