@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import * as XLSX from "xlsx";
 
@@ -12,6 +12,11 @@ export default function Home() {
   const [userSolution, setUserSolution] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
+  const [language, setLanguage] = useState<"fr" | "en">("fr");
+
+  const toggleLanguage = useCallback(() => {
+    setLanguage(prev => prev === "fr" ? "en" : "fr");
+  }, []);
 
   useEffect(() => {
     fetch("db.xlsx")
@@ -24,11 +29,11 @@ export default function Home() {
         const randomIndex = Math.floor(Math.random() * json.length);
         const randomProblem = json[randomIndex] as any;
         
-        setProblem(randomProblem.statement);
-        setHint(randomProblem.hint);
-        setSolution(randomProblem.solution);
+        setProblem(JSON.parse(randomProblem.statement)[language]);
+        setHint(JSON.parse(randomProblem.hint)[language]);
+        setSolution(JSON.parse(randomProblem.solution)[language]);
       });
-  }, []);
+  }, [language]);
 
   const handleUserSolutionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserSolution(e.target.value);
@@ -59,7 +64,17 @@ export default function Home() {
       </section>
 
       <section className="w-full max-w-5xl text-center py-16">
-        <h2 className="text-3xl font-bold mb-4">Problème du Jour</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-3xl font-bold">
+            {language === "fr" ? "Problème du Jour" : "Problem of the Day"}
+          </h2>
+          <button
+            onClick={toggleLanguage}
+            className="bg-purple-500 text-white px-4 py-2 rounded-full"
+          >
+            {language === "fr" ? "Switch to English" : "Passer au Français"}
+          </button>
+        </div>
         <MathJaxContext>
           <div className="mb-4">
             <MathJax dynamic>{`\\[${problem}\\]`}</MathJax>
@@ -70,34 +85,42 @@ export default function Home() {
               rows={5}
               value={userSolution}
               onChange={handleUserSolutionChange}
-              placeholder="Écrivez votre solution en LaTeX ici..."
+              placeholder={language === "fr" ? "Écrivez votre solution en LaTeX ici..." : "Write your solution in LaTeX here..."}
             />
           </div>
           <div className="mb-4">
-            <h3 className="text-xl font-bold mb-2">Votre solution compilée:</h3>
+            <h3 className="text-xl font-bold mb-2">
+              {language === "fr" ? "Votre solution compilée:" : "Your compiled solution:"}
+            </h3>
             <MathJax dynamic>{`\\[${userSolution}\\]`}</MathJax>
           </div>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
             onClick={() => setShowHint(!showHint)}
           >
-            {showHint ? "Cacher l'indice" : "Montrer l'indice"}
+            {showHint 
+              ? (language === "fr" ? "Cacher l'indice" : "Hide hint")
+              : (language === "fr" ? "Montrer l'indice" : "Show hint")
+            }
           </button>
           <button
             className="bg-green-500 text-white px-4 py-2 rounded-full"
             onClick={() => setShowSolution(!showSolution)}
           >
-            {showSolution ? "Cacher la solution" : "Montrer la solution"}
+            {showSolution
+              ? (language === "fr" ? "Cacher la solution" : "Hide solution")
+              : (language === "fr" ? "Montrer la solution" : "Show solution")
+            }
           </button>
           {showHint && (
             <div className="mt-4">
-              <h3 className="text-xl font-bold mb-2">Indice:</h3>
+              <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Indice:" : "Hint:"}</h3>
               <MathJax dynamic>{`\\[${hint}\\]`}</MathJax>
             </div>
           )}
           {showSolution && (
             <div className="mt-4">
-              <h3 className="text-xl font-bold mb-2">Solution:</h3>
+              <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Solution:" : "Solution:"}</h3>
               <MathJax dynamic>{`\\[${solution}\\]`}</MathJax>
             </div>
           )}
