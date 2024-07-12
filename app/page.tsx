@@ -99,7 +99,7 @@ function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" sx={{ bgcolor: '#060E30' }}>
+      <AppBar position="static" sx={{ bgcolor: '#060E30', backgroundImage: 'none' }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Math Olympiads
