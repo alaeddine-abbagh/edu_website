@@ -18,9 +18,9 @@ const parseContent = (content: string) => {
   const parts = content.split(/(\$\$[\s\S]*?\$\$|\$.*?\$)/g);
   return parts.map((part, index) => {
     if (part.startsWith('$$') && part.endsWith('$$')) {
-      return <MathJax key={index}>{part}</MathJax>;
+      return <MathJax key={index}>{`\\[${part.slice(2, -2)}\\]`}</MathJax>;
     } else if (part.startsWith('$') && part.endsWith('$')) {
-      return <MathJax key={index}>{part}</MathJax>;
+      return <MathJax key={index}>{`\\(${part.slice(1, -1)}\\)`}</MathJax>;
     }
     return <span key={index}>{part}</span>;
   });
