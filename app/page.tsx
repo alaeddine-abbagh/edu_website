@@ -25,7 +25,7 @@ export default function Home() {
         setProblem(specificProblem.Problem);
         setHint(specificProblem.Hint);
         setSolution(specificProblem.Solution);
-        setLatexInput(specificProblem.Problem);
+        setLatexInput(`Here is a problem for you to solve: ${specificProblem.Problem}`);
       });
   }, []);
 
