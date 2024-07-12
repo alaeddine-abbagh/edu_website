@@ -6,12 +6,16 @@ import * as XLSX from "xlsx";
 import Link from "next/link";
 
 const config = {
-  loader: { load: ["input/asciimath", "[tex]/require", "[tex]/ams"] },
+  loader: { load: ["input/asciimath"] },
   tex: {
-    inlineMath: [["$", "$"]],
-    displayMath: [["$$", "$$"]],
-    packages: { "[+]": ["require", "ams"] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
   },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore|editor-rich-text'
+  }
 };
 
 const parseContent = (content: string) => {
