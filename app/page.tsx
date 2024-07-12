@@ -68,25 +68,25 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-24 bg-blue-100">
+        <section className="py-32 bg-blue-100">
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold mb-12 text-center text-blue-800">Featured Video</h2>
+            <h2 className="text-5xl font-bold mb-16 text-center text-blue-800">Featured Video</h2>
             <div className="flex flex-col md:flex-row items-center justify-center">
-              <div className="md:w-2/3 mb-8 md:mb-0 md:pr-8">
+              <div className="md:w-2/3 mb-12 md:mb-0 md:pr-12">
                 <div className="aspect-w-16 aspect-h-9">
                   <iframe
                     src="https://www.youtube.com/embed/eCobHMHHKRE"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full rounded-lg shadow-lg"
+                    className="w-full h-full rounded-lg shadow-xl"
                   ></iframe>
                 </div>
               </div>
               <div className="md:w-1/3">
-                <h3 className="text-2xl font-bold mb-4 text-blue-800">Why Math Olympiads Matter</h3>
-                <p className="text-blue-600 mb-4">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
-                <Link href="/explore" className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
+                <h3 className="text-3xl font-bold mb-6 text-blue-800">Why Math Olympiads Matter</h3>
+                <p className="text-blue-600 mb-6 text-lg">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
+                <Link href="/explore" className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition duration-300 text-lg">
                   Learn More
                 </Link>
               </div>
