@@ -4,10 +4,38 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import * as XLSX from "xlsx";
-import "./styles/grid-pattern.css";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import EventIcon from '@mui/icons-material/Event';
+import SchoolIcon from '@mui/icons-material/School';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 
 const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
 const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+  },
+});
 
 const config = {
   loader: { load: ["input/asciimath"] },
@@ -31,6 +59,7 @@ function Home() {
   const [randomProblem, setRandomProblem] = useState<any>(null);
   const [language, setLanguage] = useState<"fr" | "en">("en");
   const [userAnswer, setUserAnswer] = useState("");
+
   useEffect(() => {
     fetch("/db.xlsx")
       .then((response) => response.arrayBuffer())
@@ -45,198 +74,333 @@ function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-blue-custom text-white">
-      <header className="bg-blue-900 text-white py-6">
-        <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-bold font-sans text-yellow-custom">Math Olympiads</h1>
-              <nav className="space-x-4 text-lg">
-                <Link href="/explore" className="hover:text-yellow-custom transition duration-300">Explore</Link>
-                <Link href="/add-problem" className="hover:text-yellow-custom transition duration-300">Add Problem</Link>
-              </nav>
-            </div>
-          </div>
-        </header>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Math Olympiads
+          </Typography>
+          <Button color="inherit" component={Link} href="/explore">Explore</Button>
+          <Button color="inherit" component={Link} href="/add-problem">Add Problem</Button>
+        </Toolbar>
+      </AppBar>
 
-        <section className="bg-blue-700 text-white py-24">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-5xl font-bold mb-6 font-sans text-yellow-custom">Unlock Your Mathematical Potential</h2>
-            <p className="text-2xl mb-8 font-serif">Join our community of young mathematicians and prepare for Math Olympiads</p>
-            <Link href="/explore" className="bg-orange-custom text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-custom-dark transition duration-300">
+      <Container maxWidth="lg">
+        <Box sx={{ my: 4 }}>
+          <Typography variant="h2" component="h1" gutterBottom align="center">
+            Unlock Your Mathematical Potential
+          </Typography>
+          <Typography variant="h5" component="p" gutterBottom align="center">
+            Join our community of young mathematicians and prepare for Math Olympiads
+          </Typography>
+          <Box sx={{ textAlign: 'center', mt: 4 }}>
+            <Button variant="contained" size="large" component={Link} href="/explore">
               Start Exploring
-            </Link>
-          </div>
-        </section>
+            </Button>
+          </Box>
+        </Box>
 
-        <section className="py-48 bg-blue-800 relative">
-          <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-          <div className="absolute inset-0 bg-black-grid-pattern opacity-5"></div>
-          <div className="relative z-10">
-          <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold mb-24 text-center text-white font-sans">Featured Video</h2>
-            <div className="flex flex-col md:flex-row items-center justify-center">
-              <div className="md:w-2/3 mb-20 md:mb-0 md:pr-20">
-                <div className="aspect-w-16 aspect-h-9 h-[500px]">
-                  <iframe
-                    src="https://www.youtube.com/embed/eCobHMHHKRE"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full rounded-lg shadow-2xl"
-                  ></iframe>
-                </div>
-              </div>
-              <div className="md:w-1/3">
-                <h3 className="text-4xl font-bold mb-10 text-white font-sans">Why Math Olympiads Matter</h3>
-                <p className="text-white mb-10 text-2xl leading-relaxed font-serif">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
-                <Link href="/explore" className="bg-orange-custom text-white px-12 py-5 rounded-full hover:bg-orange-custom-dark transition duration-300 text-2xl font-semibold">
-                  Learn More
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <Paper elevation={3} sx={{ p: 4, my: 4 }}>
+          <Typography variant="h4" component="h2" gutterBottom align="center">
+            Featured Video
+          </Typography>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={8}>
+              <Box sx={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+                <iframe
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                  src="https://www.youtube.com/embed/eCobHMHHKRE"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h5" component="h3" gutterBottom>
+                Why Math Olympiads Matter
+              </Typography>
+              <Typography variant="body1" paragraph>
+                Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.
+              </Typography>
+              <Button variant="contained" color="secondary" startIcon={<YouTubeIcon />}>
+                Learn More
+              </Button>
+            </Grid>
+          </Grid>
+        </Paper>
 
-      {randomProblem && (
-        <section className="py-24 bg-blue-800">
-            <div className="container mx-auto px-4">
-              <h2 className="text-4xl font-bold mb-8 text-center text-white font-sans">Problem of the Day</h2>
-              <div className="bg-blue-700 p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
-                <h3 className="font-bold text-2xl mb-4 text-white font-sans">Problem Statement:</h3>
-                <MathJax dynamic>{parseContent(JSON.parse(randomProblem.statement)[language])}</MathJax>
-                <button
-                  onClick={() => setLanguage(prev => prev === "fr" ? "en" : "fr")}
-                  className="mt-6 bg-orange-custom text-white px-4 py-2 rounded-lg hover:bg-orange-custom-dark transition duration-300"
-                >
-                  {language === "fr" ? "Switch to English" : "Passer au Français"}
-                </button>
-                <div className="mt-8">
-                  <h4 className="font-bold text-xl mb-2 text-white font-sans">Your Answer:</h4>
-                  <textarea
-                    value={userAnswer}
-                    onChange={(e) => setUserAnswer(e.target.value)}
-                    className="w-full p-2 border border-blue-300 rounded bg-blue-600 text-white"
-                    rows={4}
-                    placeholder="Type your answer here..."
-                  />
-                  <MathJax dynamic>{parseContent(userAnswer)}</MathJax>
-                </div>
-              </div>
-            </div>
-          </section>
+        {randomProblem && (
+          <Paper elevation={3} sx={{ p: 4, my: 4 }}>
+            <Typography variant="h4" component="h2" gutterBottom align="center">
+              Problem of the Day
+            </Typography>
+            <Typography variant="h6" component="h3" gutterBottom>
+              Problem Statement:
+            </Typography>
+            <MathJax dynamic>{parseContent(JSON.parse(randomProblem.statement)[language])}</MathJax>
+            <Box sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={() => setLanguage(prev => prev === "fr" ? "en" : "fr")}
+              >
+                {language === "fr" ? "Switch to English" : "Passer au Français"}
+              </Button>
+            </Box>
+            <Box sx={{ mt: 4 }}>
+              <Typography variant="h6" component="h4" gutterBottom>
+                Your Answer:
+              </Typography>
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Type your answer here..."
+                variant="outlined"
+              />
+              <Box sx={{ mt: 2 }}>
+                <MathJax dynamic>{parseContent(userAnswer)}</MathJax>
+              </Box>
+            </Box>
+          </Paper>
         )}
 
-        <section className="py-24 bg-green-100">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-12 text-center text-green-800">Motivational Quotes</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <p className="text-xl italic text-green-600">"Mathematics is the language in which God has written the universe."</p>
-                <p className="mt-4 text-right font-semibold text-green-800">- Galileo Galilei</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <p className="text-xl italic text-green-600">"Pure mathematics is, in its way, the poetry of logical ideas."</p>
-                <p className="mt-4 text-right font-semibold text-green-800">- Albert Einstein</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Paper elevation={3} sx={{ p: 4, my: 4, bgcolor: 'primary.light' }}>
+          <Typography variant="h4" component="h2" gutterBottom align="center" color="primary.contrastText">
+            Motivational Quotes
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography variant="body1" color="text.secondary">
+                    <FormatQuoteIcon /> Mathematics is the language in which God has written the universe.
+                  </Typography>
+                  <Typography variant="subtitle1" align="right" sx={{ mt: 2 }}>
+                    - Galileo Galilei
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography variant="body1" color="text.secondary">
+                    <FormatQuoteIcon /> Pure mathematics is, in its way, the poetry of logical ideas.
+                  </Typography>
+                  <Typography variant="subtitle1" align="right" sx={{ mt: 2 }}>
+                    - Albert Einstein
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Paper>
 
-        <section className="py-24 bg-gray-100">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-12 text-center">Upcoming Events</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="font-bold text-xl mb-3 text-blue-600">International Math Olympiad</h3>
-                <p className="text-gray-600 mb-4">Date: July 15-25, 2023</p>
-                <p className="text-gray-600 mb-4">Location: Tokyo, Japan</p>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Register Now</button>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="font-bold text-xl mb-3 text-blue-600">European Girls' Mathematical Olympiad</h3>
-                <p className="text-gray-600 mb-4">Date: April 13-19, 2024</p>
-                <p className="text-gray-600 mb-4">Location: Tbilisi, Georgia</p>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Learn More</button>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="font-bold text-xl mb-3 text-blue-600">Asian Pacific Mathematics Olympiad</h3>
-                <p className="text-gray-600 mb-4">Date: March 8, 2024</p>
-                <p className="text-gray-600 mb-4">Location: Various Countries</p>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">More Info</button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Paper elevation={3} sx={{ p: 4, my: 4 }}>
+          <Typography variant="h4" component="h2" gutterBottom align="center">
+            Upcoming Events
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    International Math Olympiad
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    <EventIcon fontSize="small" /> Date: July 15-25, 2023
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    Location: Tokyo, Japan
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Register Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    European Girls' Mathematical Olympiad
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    <EventIcon fontSize="small" /> Date: April 13-19, 2024
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    Location: Tbilisi, Georgia
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Learn More
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    Asian Pacific Mathematics Olympiad
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    <EventIcon fontSize="small" /> Date: March 8, 2024
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    Location: Various Countries
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    More Info
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        </Paper>
 
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-12 text-center">Popular Courses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
-                <h3 className="font-bold text-xl mb-3 text-blue-600">Introduction to Algebra</h3>
-                <p className="text-gray-600 mb-4">Learn the basics of algebra and build a strong foundation for advanced mathematics.</p>
-                <ul className="text-gray-600 mb-4 list-disc list-inside">
-                  <li>Linear equations</li>
-                  <li>Quadratic equations</li>
-                  <li>Polynomials</li>
-                </ul>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Enroll Now</button>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
-                <h3 className="font-bold text-xl mb-3 text-blue-600">Geometry Fundamentals</h3>
-                <p className="text-gray-600 mb-4">Explore geometric concepts and develop spatial reasoning skills.</p>
-                <ul className="text-gray-600 mb-4 list-disc list-inside">
-                  <li>Euclidean geometry</li>
-                  <li>Trigonometry</li>
-                  <li>Coordinate geometry</li>
-                </ul>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Enroll Now</button>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
-                <h3 className="font-bold text-xl mb-3 text-blue-600">Calculus I</h3>
-                <p className="text-gray-600 mb-4">Dive into differential calculus and its applications in problem-solving.</p>
-                <ul className="text-gray-600 mb-4 list-disc list-inside">
-                  <li>Limits and continuity</li>
-                  <li>Derivatives</li>
-                  <li>Applications of derivatives</li>
-                </ul>
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Enroll Now</button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Paper elevation={3} sx={{ p: 4, my: 4 }}>
+          <Typography variant="h4" component="h2" gutterBottom align="center">
+            Popular Courses
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    <SchoolIcon /> Introduction to Algebra
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    Learn the basics of algebra and build a strong foundation for advanced mathematics.
+                  </Typography>
+                  <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
+                    <li>Linear equations</li>
+                    <li>Quadratic equations</li>
+                    <li>Polynomials</li>
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Enroll Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    <SchoolIcon /> Geometry Fundamentals
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    Explore geometric concepts and develop spatial reasoning skills.
+                  </Typography>
+                  <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
+                    <li>Euclidean geometry</li>
+                    <li>Trigonometry</li>
+                    <li>Coordinate geometry</li>
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Enroll Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="h3" gutterBottom>
+                    <SchoolIcon /> Calculus I
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    Dive into differential calculus and its applications in problem-solving.
+                  </Typography>
+                  <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
+                    <li>Limits and continuity</li>
+                    <li>Derivatives</li>
+                    <li>Applications of derivatives</li>
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Enroll Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Container>
 
-        <footer className="bg-gray-800 text-white py-12">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-between">
-              <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                <h3 className="text-2xl font-bold mb-4">Math Olympiads</h3>
-                <p>Empowering students with advanced mathematical skills.</p>
-              </div>
-              <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                <h4 className="text-xl font-bold mb-4">Quick Links</h4>
-                <ul>
-                  <li><Link href="/about" className="hover:text-blue-300">About Us</Link></li>
-                  <li><Link href="/contact" className="hover:text-blue-300">Contact</Link></li>
-                  <li><Link href="/privacy" className="hover:text-blue-300">Privacy Policy</Link></li>
-                </ul>
-              </div>
-              <div className="w-full md:w-1/3">
-                <h4 className="text-xl font-bold mb-4">Connect With Us</h4>
-                <div className="flex space-x-4">
-                  <a href="#" className="text-white hover:text-blue-300"><i className="fab fa-facebook-f"></i></a>
-                  <a href="#" className="text-white hover:text-blue-300"><i className="fab fa-twitter"></i></a>
-                  <a href="#" className="text-white hover:text-blue-300"><i className="fab fa-instagram"></i></a>
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-              <p>&copy; 2023 Math Olympiads. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
-    </main>
+      <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={4} justifyContent="space-between">
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" color="text.primary" gutterBottom>
+                Math Olympiads
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Empowering students with advanced mathematical skills.
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" color="text.primary" gutterBottom>
+                Quick Links
+              </Typography>
+              <Typography variant="body2" component="ul" sx={{ pl: 0, listStyle: 'none' }}>
+                <li>
+                  <Link href="/about" color="inherit">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" color="inherit">
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" color="inherit">
+                    Privacy Policy
+                  </Link>
+                </li>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" color="text.primary" gutterBottom>
+                Connect With Us
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Link href="#" color="inherit">
+                  <i className="fab fa-facebook-f"></i>
+                </Link>
+                <Link href="#" color="inherit">
+                  <i className="fab fa-twitter"></i>
+                </Link>
+                <Link href="#" color="inherit">
+                  <i className="fab fa-instagram"></i>
+                </Link>
+              </Box>
+            </Grid>
+          </Grid>
+          <Box mt={5}>
+            <Typography variant="body2" color="text.secondary" align="center">
+              © 2023 Math Olympiads. All rights reserved.
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 }
 
