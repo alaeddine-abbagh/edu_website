@@ -18,23 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <header>
-          <nav>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/lectures">Lectures</a></li>
-              <li><a href="/problems">Problems</a></li>
-              <li><a href="/forum">Forum</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </nav>
-        </header>
-        <main>{children}</main>
-        <footer>
-          <p>&copy; 2023 Math Olympiads. All rights reserved.</p>
-        </footer>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
