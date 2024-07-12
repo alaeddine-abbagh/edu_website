@@ -20,12 +20,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <header>
           <nav>
-            <ul>
+            <ul className="flex justify-end space-x-4">
               <li><a href="/">Home</a></li>
-              <li><a href="/lectures">Lectures</a></li>
+              <li><a href="/explore">Explore</a></li>
               <li><a href="/problems">Problems</a></li>
+              <li><a href="/path">Path</a></li>
               <li><a href="/forum">Forum</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li><a href="/blog">Blog</a></li>
             </ul>
           </nav>
         </header>
