@@ -15,15 +15,8 @@ const config = {
 };
 
 const parseContent = (content: string) => {
-  const parts = content.split(/(\$\$[\s\S]*?\$\$|\$.*?\$)/g);
-  return parts.map((part, index) => {
-    if (part.startsWith('$$') && part.endsWith('$$')) {
-      return <MathJax key={index}>{`\\[${part.slice(2, -2)}\\]`}</MathJax>;
-    } else if (part.startsWith('$') && part.endsWith('$')) {
-      return <MathJax key={index}>{`\\(${part.slice(1, -1)}\\)`}</MathJax>;
-    }
-    return <span key={index}>{part}</span>;
-  });
+  return content.replace(/\$\$(.*?)\$\$/g, (_, match) => `\\[${match}\\]`)
+                .replace(/\$(.*?)\$/g, (_, match) => `\\(${match}\\)`);
 };
 
 export default function ExplorePage() {
@@ -68,15 +61,15 @@ export default function ExplorePage() {
             <h2 className="text-2xl font-bold mb-4">Problem {index + 1}</h2>
             <div className="mb-4">
               <h3 className="text-xl font-bold mb-2">Statement:</h3>
-              {parseContent(JSON.parse(problem.statement)[language])}
+              <MathJax dynamic>{parseContent(JSON.parse(problem.statement)[language])}</MathJax>
             </div>
             <div className="mb-4">
               <h3 className="text-xl font-bold mb-2">Hint:</h3>
-              {parseContent(JSON.parse(problem.hint)[language])}
+              <MathJax dynamic>{parseContent(JSON.parse(problem.hint)[language])}</MathJax>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-2">Solution:</h3>
-              {parseContent(JSON.parse(problem.solution)[language])}
+              <MathJax dynamic>{parseContent(JSON.parse(problem.solution)[language])}</MathJax>
             </div>
           </div>
         ))}

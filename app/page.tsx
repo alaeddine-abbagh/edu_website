@@ -9,15 +9,8 @@ let workbook: XLSX.WorkBook | null = null;
 
 // Helper function to parse content
 const parseContent = (content: string) => {
-  const parts = content.split(/(\$\$[\s\S]*?\$\$|\$.*?\$)/g);
-  return parts.map((part, index) => {
-    if (part.startsWith('$$') && part.endsWith('$$')) {
-      return <MathJax key={index}>{`\\[${part.slice(2, -2)}\\]`}</MathJax>;
-    } else if (part.startsWith('$') && part.endsWith('$')) {
-      return <MathJax key={index}>{`\\(${part.slice(1, -1)}\\)`}</MathJax>;
-    }
-    return <span key={index}>{part}</span>;
-  });
+  return content.replace(/\$\$(.*?)\$\$/g, (_, match) => `\\[${match}\\]`)
+                .replace(/\$(.*?)\$/g, (_, match) => `\\(${match}\\)`);
 };
 
 const config = {
@@ -123,7 +116,7 @@ export default function Home() {
         </div>
         <MathJaxContext config={config}>
           <div className="mb-4">
-            <MathJax dynamic>{`\\(${problem}\\)`}</MathJax>
+            <MathJax dynamic>{parseContent(problem)}</MathJax>
           </div>
           <div className="mb-4">
             <textarea
@@ -138,7 +131,7 @@ export default function Home() {
             <h3 className="text-xl font-bold mb-2">
               {language === "fr" ? "Votre solution compilée:" : "Your compiled solution:"}
             </h3>
-            <MathJax>{`\\[${userSolution}\\]`}</MathJax>
+            <MathJax dynamic>{parseContent(userSolution)}</MathJax>
           </div>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
@@ -161,13 +154,13 @@ export default function Home() {
           {showHint && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Indice:" : "Hint:"}</h3>
-              <MathJax dynamic>{`\\(${hint}\\)`}</MathJax>
+              <MathJax dynamic>{parseContent(hint)}</MathJax>
             </div>
           )}
           {showSolution && (
             <div className="mt-4">
               <h3 className="text-xl font-bold mb-2">{language === "fr" ? "Solution:" : "Solution:"}</h3>
-              <MathJax dynamic>{`\\(${solution}\\)`}</MathJax>
+              <MathJax dynamic>{parseContent(solution)}</MathJax>
             </div>
           )}
         </MathJaxContext>
