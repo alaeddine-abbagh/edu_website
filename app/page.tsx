@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import * as XLSX from "xlsx";
@@ -30,10 +30,6 @@ export default function Home() {
   const [randomProblem, setRandomProblem] = useState<any>(null);
   const [language, setLanguage] = useState<"fr" | "en">("en");
   const [userAnswer, setUserAnswer] = useState("");
-  const [sections, setSections] = useState([false, false, false, false]);
-
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
-
   useEffect(() => {
     fetch("/db.xlsx")
       .then((response) => response.arrayBuffer())
@@ -45,34 +41,6 @@ export default function Home() {
         const randomIndex = Math.floor(Math.random() * json.length);
         setRandomProblem(json[randomIndex] as any);
       });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = sectionRefs.current.findIndex(ref => ref === entry.target);
-            if (index !== -1) {
-              setSections(prev => {
-                const newSections = [...prev];
-                newSections[index] = true;
-                return newSections;
-              });
-            }
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    sectionRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      sectionRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
-    };
   }, []);
 
   return (
@@ -100,7 +68,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section ref={el => sectionRefs.current[0] = el} className={`py-24 bg-blue-100 transition-opacity duration-1000 ${sections[0] ? 'opacity-100' : 'opacity-0'}`}>
+        <section className="py-24 bg-blue-100">
           <div className="container mx-auto px-4">
             <h2 className="text-5xl font-bold mb-12 text-center text-blue-800">Featured Video</h2>
             <div className="flex flex-col md:flex-row items-center justify-center">
@@ -127,7 +95,7 @@ export default function Home() {
         </section>
 
         {randomProblem && (
-          <section ref={el => sectionRefs.current[1] = el} className={`py-24 bg-purple-100 transition-opacity duration-1000 ${sections[1] ? 'opacity-100' : 'opacity-0'}`}>
+          <section className="py-24 bg-purple-100">
             <div className="container mx-auto px-4">
               <h2 className="text-4xl font-bold mb-8 text-center text-purple-800">Problem of the Day</h2>
               <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
@@ -155,7 +123,7 @@ export default function Home() {
           </section>
         )}
 
-        <section ref={el => sectionRefs.current[2] = el} className={`py-24 bg-green-100 transition-opacity duration-1000 ${sections[2] ? 'opacity-100' : 'opacity-0'}`}>
+        <section className="py-24 bg-green-100">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold mb-12 text-center text-green-800">Motivational Quotes</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -171,7 +139,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section ref={el => sectionRefs.current[3] = el} className={`py-24 bg-gray-100 transition-opacity duration-1000 ${sections[3] ? 'opacity-100' : 'opacity-0'}`}>
+        <section className="py-24 bg-gray-100">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold mb-12 text-center">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -197,7 +165,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section ref={el => sectionRefs.current[4] = el} className={`py-24 bg-white transition-opacity duration-1000 ${sections[4] ? 'opacity-100' : 'opacity-0'}`}>
+        <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold mb-12 text-center">Popular Courses</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
