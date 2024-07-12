@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import dynamic from 'next/dynamic';
 const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
+const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
 import * as XLSX from "xlsx";
 import Link from "next/link";
 
@@ -72,7 +73,7 @@ export default function Home() {
   };
 
   return (
-    <MathJax>
+    <MathJaxContext config={config}>
       <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-teal-400 to-violet-500 text-white">
       <section className="w-full max-w-5xl text-center py-16">
         <h1 className="text-5xl font-bold mb-8">Welcome to Math Olympiads</h1>
@@ -169,6 +170,6 @@ export default function Home() {
           )}
       </section>
       </main>
-    </MathJax>
+    </MathJaxContext>
   );
 }

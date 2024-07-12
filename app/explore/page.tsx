@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import dynamic from 'next/dynamic';
 const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
+const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
 import * as XLSX from "xlsx";
 import Link from "next/link";
 
@@ -44,6 +45,7 @@ export default function ExplorePage() {
   };
 
   return (
+    <MathJaxContext config={config}>
       <main className="min-h-screen p-24 bg-gradient-to-r from-teal-400 to-violet-500 text-white">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Problem Explorer</h1>
@@ -77,5 +79,6 @@ export default function ExplorePage() {
           </div>
         ))}
       </main>
+    </MathJaxContext>
   );
 }
