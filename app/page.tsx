@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import * as XLSX from "xlsx";
-import "../styles/grid-pattern.css";
+import "./styles/grid-pattern.css";
 
 const MathJax = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJax), { ssr: false });
 const MathJaxContext = dynamic(() => import('better-react-mathjax').then(mod => mod.MathJaxContext), { ssr: false });
