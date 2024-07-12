@@ -6,13 +6,24 @@ import * as XLSX from "xlsx";
 
 // Helper function to parse content
 const parseContent = (content: string) => {
-  const parts = content.split(/(\$.*?\$)/g);
+  const parts = content.split(/(\$\$[\s\S]*?\$\$|\$.*?\$)/g);
   return parts.map((part, index) => {
-    if (part.startsWith('$') && part.endsWith('$')) {
-      return <MathJax key={index}>{part}</MathJax>;
+    if (part.startsWith('$$') && part.endsWith('$$')) {
+      return <MathJax key={index}>{`\\[${part.slice(2, -2)}\\]`}</MathJax>;
+    } else if (part.startsWith('$') && part.endsWith('$')) {
+      return <MathJax key={index}>{`\\(${part.slice(1, -1)}\\)`}</MathJax>;
     }
     return <span key={index}>{part}</span>;
   });
+};
+
+const config = {
+  loader: { load: ["input/asciimath", "[tex]/require", "[tex]/ams"] },
+  tex: {
+    inlineMath: [["$", "$"]],
+    displayMath: [["$$", "$$"]],
+    packages: { "[+]": ["require", "ams"] },
+  },
 };
 
 export default function Home() {
@@ -86,7 +97,7 @@ export default function Home() {
             {language === "fr" ? "Switch to English" : "Passer au Français"}
           </button>
         </div>
-        <MathJaxContext>
+        <MathJaxContext config={config}>
           <div className="mb-4">
             {parseContent(problem)}
           </div>
@@ -103,7 +114,7 @@ export default function Home() {
             <h3 className="text-xl font-bold mb-2">
               {language === "fr" ? "Votre solution compilée:" : "Your compiled solution:"}
             </h3>
-            <MathJax>{userSolution}</MathJax>
+            <MathJax>{`\\[${userSolution}\\]`}</MathJax>
           </div>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-full mr-4"
