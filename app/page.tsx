@@ -45,32 +45,32 @@ export default function Home() {
 
   return (
     <MathJaxContext config={config}>
-      <main className="min-h-screen bg-white text-gray-800">
-        <header className="bg-blue-600 text-white py-6">
+      <main className="min-h-screen bg-blue-900 text-white">
+        <header className="bg-blue-800 text-white py-6">
           <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-bold">Math Olympiads</h1>
-              <nav className="space-x-4">
-                <Link href="/explore" className="hover:underline">Explore</Link>
-                <Link href="/add-problem" className="hover:underline">Add Problem</Link>
+              <h1 className="text-4xl font-bold font-sans">Math Olympiads</h1>
+              <nav className="space-x-4 text-lg">
+                <Link href="/explore" className="hover:text-orange-400 transition duration-300">Explore</Link>
+                <Link href="/add-problem" className="hover:text-orange-400 transition duration-300">Add Problem</Link>
               </nav>
             </div>
           </div>
         </header>
 
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-24">
+        <section className="bg-blue-800 text-white py-24">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-5xl font-bold mb-6">Unlock Your Mathematical Potential</h2>
-            <p className="text-xl mb-8">Join our community of young mathematicians and prepare for Math Olympiads</p>
-            <Link href="/explore" className="bg-white text-blue-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-100 transition duration-300">
+            <h2 className="text-5xl font-bold mb-6 font-sans">Unlock Your Mathematical Potential</h2>
+            <p className="text-2xl mb-8 font-serif">Join our community of young mathematicians and prepare for Math Olympiads</p>
+            <Link href="/explore" className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300">
               Start Exploring
             </Link>
           </div>
         </section>
 
-        <section className="py-48 bg-blue-100">
+        <section className="py-48 bg-blue-700">
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold mb-24 text-center text-blue-800">Featured Video</h2>
+            <h2 className="text-5xl font-bold mb-24 text-center text-white font-sans">Featured Video</h2>
             <div className="flex flex-col md:flex-row items-center justify-center">
               <div className="md:w-2/3 mb-20 md:mb-0 md:pr-20">
                 <div className="aspect-w-16 aspect-h-9 h-[500px]">
@@ -84,9 +84,9 @@ export default function Home() {
                 </div>
               </div>
               <div className="md:w-1/3">
-                <h3 className="text-4xl font-bold mb-10 text-blue-800">Why Math Olympiads Matter</h3>
-                <p className="text-blue-600 mb-10 text-2xl leading-relaxed">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
-                <Link href="/explore" className="bg-blue-600 text-white px-12 py-5 rounded-full hover:bg-blue-700 transition duration-300 text-2xl font-semibold">
+                <h3 className="text-4xl font-bold mb-10 text-white font-sans">Why Math Olympiads Matter</h3>
+                <p className="text-white mb-10 text-2xl leading-relaxed font-serif">Discover how participating in Math Olympiads can boost your problem-solving skills and open up new opportunities in your academic journey.</p>
+                <Link href="/explore" className="bg-orange-500 text-white px-12 py-5 rounded-full hover:bg-orange-600 transition duration-300 text-2xl font-semibold">
                   Learn More
                 </Link>
               </div>
@@ -95,24 +95,24 @@ export default function Home() {
         </section>
 
         {randomProblem && (
-          <section className="py-24 bg-purple-100">
+          <section className="py-24 bg-blue-800">
             <div className="container mx-auto px-4">
-              <h2 className="text-4xl font-bold mb-8 text-center text-purple-800">Problem of the Day</h2>
-              <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
-                <h3 className="font-bold text-2xl mb-4 text-purple-600">Problem Statement:</h3>
+              <h2 className="text-4xl font-bold mb-8 text-center text-white font-sans">Problem of the Day</h2>
+              <div className="bg-blue-700 p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+                <h3 className="font-bold text-2xl mb-4 text-white font-sans">Problem Statement:</h3>
                 <MathJax dynamic>{parseContent(JSON.parse(randomProblem.statement)[language])}</MathJax>
                 <button
                   onClick={() => setLanguage(prev => prev === "fr" ? "en" : "fr")}
-                  className="mt-6 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-300"
+                  className="mt-6 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
                 >
                   {language === "fr" ? "Switch to English" : "Passer au Français"}
                 </button>
                 <div className="mt-8">
-                  <h4 className="font-bold text-xl mb-2 text-purple-600">Your Answer:</h4>
+                  <h4 className="font-bold text-xl mb-2 text-white font-sans">Your Answer:</h4>
                   <textarea
                     value={userAnswer}
                     onChange={(e) => setUserAnswer(e.target.value)}
-                    className="w-full p-2 border border-purple-300 rounded"
+                    className="w-full p-2 border border-blue-300 rounded bg-blue-600 text-white"
                     rows={4}
                     placeholder="Type your answer here..."
                   />
