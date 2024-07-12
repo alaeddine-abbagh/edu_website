@@ -21,7 +21,8 @@ const config = {
 };
 
 const parseContent = (content: string) => {
-  return content.replace(/\$/g, '\\(').replace(/\$/g, '\\)');
+  return content.replace(/\$\$(.*?)\$\$/g, '\\[$1\\]')
+                .replace(/\$(.*?)\$/g, '\\($1\\)');
 };
 
 export default function ExplorePage() {

@@ -11,7 +11,8 @@ let workbook: XLSX.WorkBook | null = null;
 
 // Helper function to parse content
 const parseContent = (content: string) => {
-  return content.replace(/\$/g, '\\(').replace(/\$/g, '\\)');
+  return content.replace(/\$\$(.*?)\$\$/g, '\\[$1\\]')
+                .replace(/\$(.*?)\$/g, '\\($1\\)');
 };
 
 const config = {
