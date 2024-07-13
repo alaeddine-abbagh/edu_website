@@ -27,10 +27,10 @@ const parseContent = (content: string) => {
 
 export default function AddProblemPage() {
   const [formData, setFormData] = useState({
-    statement: "",
-    solution: "",
+    statement: { fr: "", en: "" },
+    solution: { fr: "", en: "" },
     difficultyLevel: "",
-    hint: "",
+    hint: { fr: "", en: "" },
     category: "",
     comment: "",
     ideas: "",
@@ -39,22 +39,31 @@ export default function AddProblemPage() {
   });
 
   const [preview, setPreview] = useState({
-    statement: "",
-    solution: "",
-    hint: "",
+    statement: { fr: "", en: "" },
+    solution: { fr: "", en: "" },
+    hint: { fr: "", en: "" },
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const [field, lang] = name.split('-');
+    
+    if (lang) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [field]: { ...prevData[field as keyof typeof prevData], [lang]: value },
+      }));
 
-    if (name === "statement" || name === "solution" || name === "hint") {
-      setPreview((prevPreview) => ({
-        ...prevPreview,
-        [name]: parseContent(value),
+      if (field === "statement" || field === "solution" || field === "hint") {
+        setPreview((prevPreview) => ({
+          ...prevPreview,
+          [field]: { ...prevPreview[field as keyof typeof preview], [lang]: parseContent(value) },
+        }));
+      }
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
       }));
     }
   };
@@ -78,9 +87,9 @@ export default function AddProblemPage() {
       // Add new problem to JSON
       json.push({
         ...formData,
-        statement: JSON.stringify({ fr: formData.statement, en: "" }),
-        solution: JSON.stringify({ fr: formData.solution, en: "" }),
-        hint: JSON.stringify({ fr: formData.hint, en: "" }),
+        statement: JSON.stringify(formData.statement),
+        solution: JSON.stringify(formData.solution),
+        hint: JSON.stringify(formData.hint),
       });
 
       // Convert JSON back to sheet
@@ -107,10 +116,10 @@ export default function AddProblemPage() {
       
       // Reset the form
       setFormData({
-        statement: "",
-        solution: "",
+        statement: { fr: "", en: "" },
+        solution: { fr: "", en: "" },
         difficultyLevel: "",
-        hint: "",
+        hint: { fr: "", en: "" },
         category: "",
         comment: "",
         ideas: "",
@@ -118,9 +127,9 @@ export default function AddProblemPage() {
         origin: "",
       });
       setPreview({
-        statement: "",
-        solution: "",
-        hint: "",
+        statement: { fr: "", en: "" },
+        solution: { fr: "", en: "" },
+        hint: { fr: "", en: "" },
       });
     } catch (error) {
       console.error("Error adding problem:", error);
@@ -139,32 +148,48 @@ export default function AddProblemPage() {
             </Link>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {Object.keys(formData).map((key) => (
+            {Object.entries(formData).map(([key, value]) => (
               <div key={key}>
                 <label htmlFor={key} className="block text-sm font-medium text-white">
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </label>
-                {key === "statement" || key === "solution" || key === "hint" ? (
-                  <div>
-                    <textarea
-                      id={key}
-                      name={key}
-                      value={formData[key as keyof typeof formData]}
-                      onChange={handleInputChange}
-                      rows={4}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black"
-                    />
-                    <div className="mt-2 p-2 bg-white text-black rounded">
-                      <h4 className="font-bold">Preview:</h4>
-                      <MathJax dynamic>{preview[key as keyof typeof preview]}</MathJax>
+                {typeof value === 'object' ? (
+                  <>
+                    <div className="mt-1 space-y-2">
+                      <textarea
+                        id={`${key}-fr`}
+                        name={`${key}-fr`}
+                        value={value.fr}
+                        onChange={handleInputChange}
+                        rows={4}
+                        placeholder="French"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black"
+                      />
+                      <textarea
+                        id={`${key}-en`}
+                        name={`${key}-en`}
+                        value={value.en}
+                        onChange={handleInputChange}
+                        rows={4}
+                        placeholder="English"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black"
+                      />
                     </div>
-                  </div>
+                    {(key === "statement" || key === "solution" || key === "hint") && (
+                      <div className="mt-2 p-2 bg-white text-black rounded">
+                        <h4 className="font-bold">Preview (French):</h4>
+                        <MathJax dynamic>{preview[key as keyof typeof preview].fr}</MathJax>
+                        <h4 className="font-bold mt-2">Preview (English):</h4>
+                        <MathJax dynamic>{preview[key as keyof typeof preview].en}</MathJax>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <input
                     type="text"
                     id={key}
                     name={key}
-                    value={formData[key as keyof typeof formData]}
+                    value={value}
                     onChange={handleInputChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black"
                   />
