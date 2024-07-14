@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel, ThemeProvider, createTheme } from '@mui/material';
+import Latex from 'react-latex-next';
+import 'katex/dist/katex.min.css';
 
 const darkTheme = createTheme({
   palette: {
@@ -51,6 +53,9 @@ export default function ProblemsPage() {
           value={problem.statement.fr}
           onChange={handleChange('statement', 'fr')}
         />
+        <div className="mt-2 p-2 bg-gray-100 rounded">
+          <Latex>{problem.statement.fr}</Latex>
+        </div>
         <TextField
           label="Statement (English)"
           multiline
@@ -59,6 +64,9 @@ export default function ProblemsPage() {
           value={problem.statement.en}
           onChange={handleChange('statement', 'en')}
         />
+        <div className="mt-2 p-2 bg-gray-100 rounded">
+          <Latex>{problem.statement.en}</Latex>
+        </div>
         <TextField
           label="Solution (French)"
           multiline
@@ -67,6 +75,9 @@ export default function ProblemsPage() {
           value={problem.solution.fr}
           onChange={handleChange('solution', 'fr')}
         />
+        <div className="mt-2 p-2 bg-gray-100 rounded">
+          <Latex>{problem.solution.fr}</Latex>
+        </div>
         <TextField
           label="Solution (English)"
           multiline
@@ -75,6 +86,9 @@ export default function ProblemsPage() {
           value={problem.solution.en}
           onChange={handleChange('solution', 'en')}
         />
+        <div className="mt-2 p-2 bg-gray-100 rounded">
+          <Latex>{problem.solution.en}</Latex>
+        </div>
         <FormControl fullWidth>
           <InputLabel>Difficulty Level</InputLabel>
           <Select
@@ -92,12 +106,18 @@ export default function ProblemsPage() {
           value={problem.hint.fr}
           onChange={handleChange('hint', 'fr')}
         />
+        <div className="mt-2 p-2 bg-gray-100 rounded">
+          <Latex>{problem.hint.fr}</Latex>
+        </div>
         <TextField
           label="Hint (English)"
           fullWidth
           value={problem.hint.en}
           onChange={handleChange('hint', 'en')}
         />
+        <div className="mt-2 p-2 bg-gray-100 rounded">
+          <Latex>{problem.hint.en}</Latex>
+        </div>
         <TextField
           label="Category"
           fullWidth
