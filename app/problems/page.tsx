@@ -1,7 +1,13 @@
 "use client";
 
 import React from 'react';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, ThemeProvider, createTheme } from '@mui/material';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 export default function ProblemsPage() {
   const [problem, setProblem] = React.useState({
@@ -33,9 +39,10 @@ export default function ProblemsPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Add New Problem</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <ThemeProvider theme={darkTheme}>
+      <div className="container mx-auto px-4 py-8 text-white">
+        <h1 className="text-3xl font-bold mb-4 text-white">Add New Problem</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
         <TextField
           label="Statement (French)"
           multiline
@@ -124,7 +131,8 @@ export default function ProblemsPage() {
         <Button type="submit" variant="contained" color="primary">
           Add Problem
         </Button>
-      </form>
-    </div>
+        </form>
+      </div>
+    </ThemeProvider>
   );
 }
