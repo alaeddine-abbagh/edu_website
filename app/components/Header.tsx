@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ExploreIcon from '@mui/icons-material/Explore';
 import AddIcon from '@mui/icons-material/Add';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 const Header: React.FC = () => (
   <AppBar position="static" sx={{ bgcolor: '#060E30', backgroundImage: 'none' }}>
@@ -14,6 +15,7 @@ const Header: React.FC = () => (
         Math Olympiads
       </Typography>
       <Button color="inherit" sx={{ marginRight: 2 }} component={Link} href="/explore" startIcon={<ExploreIcon />}>Explore</Button>
+      <Button color="inherit" sx={{ marginRight: 2 }} component={Link} href="/problems" startIcon={<ListAltIcon />}>Problems</Button>
       <Button color="inherit" component={Link} href="/add-problem" startIcon={<AddIcon />}>Add Problem</Button>
     </Toolbar>
   </AppBar>
