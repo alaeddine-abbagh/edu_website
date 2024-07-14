@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel, ThemeProvider, createTheme } from '@mui/material';
-import Latex from 'react-latex-next';
-import 'katex/dist/katex.min.css';
 
 const darkTheme = createTheme({
   palette: {
@@ -53,8 +51,8 @@ export default function ProblemsPage() {
           value={problem.statement.fr}
           onChange={handleChange('statement', 'fr')}
         />
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <Latex>{problem.statement.fr}</Latex>
+        <div className="mt-2 p-2 bg-gray-100 rounded text-black">
+          {problem.statement.fr}
         </div>
         <TextField
           label="Statement (English)"
@@ -64,8 +62,8 @@ export default function ProblemsPage() {
           value={problem.statement.en}
           onChange={handleChange('statement', 'en')}
         />
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <Latex>{problem.statement.en}</Latex>
+        <div className="mt-2 p-2 bg-gray-100 rounded text-black">
+          {problem.statement.en}
         </div>
         <TextField
           label="Solution (French)"
@@ -75,8 +73,8 @@ export default function ProblemsPage() {
           value={problem.solution.fr}
           onChange={handleChange('solution', 'fr')}
         />
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <Latex>{problem.solution.fr}</Latex>
+        <div className="mt-2 p-2 bg-gray-100 rounded text-black">
+          {problem.solution.fr}
         </div>
         <TextField
           label="Solution (English)"
@@ -86,8 +84,8 @@ export default function ProblemsPage() {
           value={problem.solution.en}
           onChange={handleChange('solution', 'en')}
         />
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <Latex>{problem.solution.en}</Latex>
+        <div className="mt-2 p-2 bg-gray-100 rounded text-black">
+          {problem.solution.en}
         </div>
         <FormControl fullWidth>
           <InputLabel>Difficulty Level</InputLabel>
@@ -106,8 +104,8 @@ export default function ProblemsPage() {
           value={problem.hint.fr}
           onChange={handleChange('hint', 'fr')}
         />
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <Latex>{problem.hint.fr}</Latex>
+        <div className="mt-2 p-2 bg-gray-100 rounded text-black">
+          {problem.hint.fr}
         </div>
         <TextField
           label="Hint (English)"
@@ -115,8 +113,8 @@ export default function ProblemsPage() {
           value={problem.hint.en}
           onChange={handleChange('hint', 'en')}
         />
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <Latex>{problem.hint.en}</Latex>
+        <div className="mt-2 p-2 bg-gray-100 rounded text-black">
+          {problem.hint.en}
         </div>
         <TextField
           label="Category"
